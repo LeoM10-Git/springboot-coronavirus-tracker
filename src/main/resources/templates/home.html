@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Coronavirus Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Coronavirus Tracker</h1>
+                <p class="lead">The current cases reported globally</p>
+                <p th:text="${totalCase}" class="total-case"></p>
+                <hr class="my-4">
+                <p>Total new cases reported since last day</p>
+                <p th:text="${totalNewCase}" class="total-new-case"></p>
+            </div>
+        </div>
+
+            <table class="table table-bordered table-striped">
+                <thead class="table-success  header-fixed">
+                    <tr>
+                        <th>Province/States</th>
+                        <th>Country/Regions</th>
+                        <th>Latest Total Cases</th>
+                        <th>Changes since last day</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="tempstats : ${stats}">
+                        <td th:text="${tempstats.state}" />
+                        <td th:text="${tempstats.country}" />
+                        <td th:text="${tempstats.latestTotalCases}" />
+                        <td th:text="${tempstats.diffFromPreviousDate}" />
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+
+
+</body>
+
+</html>
