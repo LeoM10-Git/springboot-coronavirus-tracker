@@ -29,7 +29,16 @@
                 <p th:text="${totalNewCase}" class="total-new-case"></p>
             </div>
         </div>
+        
+        <!-- add search bar -->
+        <form th:action="@{/search}" class="form-inline">
+            <input class="form-control ml-5 mr-sm-2 mb-3 col-5"
+                   type="search"
+                   name="countryName"
+                   placeholder="Search by Country Name">
 
+            <button class="btn btn-success mb-3" type="submit">Search</button>
+        </form>
             <table class="table table-bordered table-striped">
                 <thead class="table-success  header-fixed">
                     <tr>
@@ -50,7 +59,7 @@
                 </tbody>
             </table>
     </div>
-
+    
 
 </body>
 

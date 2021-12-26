@@ -17,7 +17,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CoronavirusData {
@@ -73,5 +75,41 @@ public class CoronavirusData {
         DecimalFormat decimalFormat = new DecimalFormat("#, ###");
         int totalNewCases = allStats.stream().mapToInt(stat -> stat.getDiffFromPreviousDate()).sum();
         return decimalFormat.format(totalNewCases);
+    }
+
+    public List<LocationStats> searchByCountry(String theCountryName) {
+        List<LocationStats> results = null;
+        Map<String, List<LocationStats>> map = new HashMap<>();
+        List<LocationStats> list = new ArrayList<>();
+        List<String> country = new ArrayList<>();
+        for (LocationStats stats : allStats){
+            country.add(stats.getCountry().toLowerCase());
+        }
+
+
+        for (String countryName : country) {
+
+            for (LocationStats stats : allStats) {
+                if (countryName.equalsIgnoreCase(stats.getCountry())) {
+                    list.add(stats);
+                }
+                map.put(countryName, list);
+            }
+            // reset the array list to empty
+            list = new ArrayList<>();
+        }
+
+
+        if (theCountryName != null && (theCountryName.trim().length()>0)){
+            if (country.contains(theCountryName.toLowerCase())){
+
+                    results = map.get(theCountryName.toLowerCase());
+
+            }
+            else results = getAllStats();
+        }else{
+            results = getAllStats();
+        }
+        return results;
     }
 }
